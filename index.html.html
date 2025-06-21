@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My First Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+      @keyframes zoomSlide {
+        0% {
+          transform: scale(0.5) translateY(-20px);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+
+      #greetingMessage {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="dingSound" src="ding.mp3" preload="auto"></audio>
+
+    <h1>Welcome to Jaswanth's Website</h1>
+
+    <h2>Change Background Color 🎨</h2>
+    <input type="color" id="bgColorInput">
+    <button class="cool-button" onclick="changeBackground()">Apply Color</button>
+    <button class="cool-button" onclick="document.body.style.backgroundColor = '#f0f0f0'">Reset</button>
+
+    <h2>Click to Change Mood 😄😠</h2>
+    <img id="myImage" src="happy.jpg" width="200" alt="Mood Image"><br><br>
+    <button class="cool-button" onclick="changeImage()">Change Mood</button>
+
+    <h2>Greet Yourself 👋</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button class="cool-button" onclick="showGreeting()">Say Hello</button>
+    <h3 id="greetingMessage">Hello, stranger!</h3>
+
+    <div class="card-container">
+      <div class="card">HTML</div>
+      <div class="card">CSS</div>
+      <div class="card">JAVASCRIPT</div>
+    </div>
+
+    <button class="cool-button" onclick="greetUser()">Click Me</button>
+    <p id="status">You haven't clicked the button yet.</p>
+    <p>I'm learning HTML, CSS and JAVASCRIPT with ChatGPT</p>
+
+    <a href="https://www.google.com" target="_blank">Visit Google</a><br><br>
+    <img src="jaswanth.jpg" alt="Jaswanth" width="200">
+
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JAVASCRIPT</li>
+    </ul>
+
+    <ol>
+      <li>Learn HTML</li>
+      <li>Learn CSS</li>
+      <li>Practice JAVASCRIPT</li>
+    </ol>
+
+    <script>
+      function greetUser() {
+        alert("Welcome Jaswanth! 💥 You clicked the button!");
+        document.getElementById("status").innerText = "You clicked the button!";
+      }
+
+      function changeImage() {
+        const image = document.getElementById("myImage");
+        if (image.src.endsWith("happy.jpg")) {
+          image.src = "angry.jpg";
+        } else {
+          image.src = "happy.jpg";
+        }
+      }
+
+      function changeBackground() {
+        const color = document.getElementById("bgColorInput").value;
+        document.body.style.backgroundColor = color;
+      }
+
+      function showGreeting() {
+        const name = document.getElementById("nameInput").value;
+        const greeting = document.getElementById("greetingMessage");
+
+        if (name.trim() === "") {
+          greeting.innerText = "Hello, stranger!";
+        } else {
+          greeting.innerText = "Hello, " + name + "!";
+        }
+
+        // Animate text
+        greeting.style.animation = "none";
+        greeting.offsetHeight;
+        greeting.style.animation = "zoomSlide 0.6s ease-in-out";
+        greeting.style.opacity = 1;
+
+        // Play sound
+        const sound = document.getElementById("dingSound");
+        if (sound) {
+          sound.currentTime = 0;
+          sound.play();
+        }
+
+        // Launch confetti
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+    </script>
+  </body>
+</html>
